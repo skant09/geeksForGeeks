@@ -1,20 +1,33 @@
 'use strict';
 
-function Sample(){
-	this.name = 'surya';
-	/*this.age = function(age){
-		console.log("age is", age);
-	}*/
+function Sample() {
+    this.name = 'surya';
+    this.publicMethod = function() {
+       return  console.log('publicMethod');
+    }
+    this.age = function(age) {
+        return console.log(this.name," age is", age);
+    }
 }
 
-Sample.age = function(age){
-	console.log(this.name ,'Person age is', age);
-	return '$';
+Sample.speaks = function(language) {
+   return console.log(this.name, 'Person speaks', language);
 }
 
-var surya = new Sample();
+Sample.prototype.run = function(speed){
+    return console.log(this.name,'Person runs with', speed);
+}
 
-console.trace(Sample.age(30));
-console.trace(Sample.name);
-console.trace(surya.name);
-console.log(surya.age(24));
+try {
+   // console.log(Sample.age(30)); //sample.age is not a function
+   console.log(Sample.speaks('german'));
+   // console.log(Sample.run('30')); // run is not a function
+} catch (e) {
+  console.log(e);
+} finally {
+	var surya = new Sample();
+    // console.log(surya.speaks('german')); //speaks undefined
+    console.log(surya.run('30')); // defined
+    console.log(surya.age('24')); // defined
+}
+

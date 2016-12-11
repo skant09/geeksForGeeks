@@ -1,5 +1,8 @@
 'use strict';
-
+/**
+ * @class Node element of a linkedlist
+ * @param {element} element created a linkedlist element
+ */
 function Node(element) {
     this.element = element;
     this.next = null;

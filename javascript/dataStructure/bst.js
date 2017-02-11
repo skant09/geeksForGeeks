@@ -12,6 +12,7 @@ function Node(value) {
         return this.node;
     };
     this.horizontalPosition = null;
+    this.depth = 0;
 }
 /**
  * @class Binary Search Tree
@@ -31,6 +32,7 @@ function BST() {
     this.find = find;
     this.getMin = getMin;
     this.getMax = getMax;
+    this.checkBalance = checkBalance;
 }
 /**
  * Insert function for BST
@@ -43,6 +45,7 @@ function insert(data) {
     if (!this.root) {
         this.root = n;
         n.horizontalPosition = 0;
+        n.depth = 0;
     } else {
         // start from root, traverse and insert
         var current = this.root;
@@ -70,15 +73,22 @@ function insert(data) {
                 }
             }
         }
+        this.checkBalance(this);
     }
     // console.log(data, n.horizontalPosition);
 }
 
-function inOrder(node) {
+function inOrder(node, cb) {
     if (node) {
-        inOrder(node.left);
-        console.log('*', node.show(), ' ', node.horizontalPosition);
-        inOrder(node.right);
+        inOrder(node.left, cb);
+        if (cb && typeof cb === 'function') {
+            cb(node);
+        } else if (!cb) {
+            console.log('*', node.show(), ' ', node.horizontalPosition, node.depth);
+        } else {
+            throw new Error('Callback is not a function');
+        }
+        inOrder(node.right, cb);
     }
     return 'done';
 }
@@ -96,8 +106,8 @@ function postOrder(node) {
     if (node) {
         postOrder(node.left);
         postOrder(node.right);
-        console.log('*', node.show());
     }
+    console.log('*', node.show());
     return 'done';
 }
 
@@ -131,13 +141,69 @@ function getMax() {
     return current.node;
 }
 
+/**
+ * AVL tree rotation
+ */
+function rightRotation(node) {
+    var temp = node;
+    node = temp.left;
+    node.left = temp.left.left;
+    node.right = temp.right;
+}
+
+function rightRotation(node) {
+    var temp = node;
+    node = temp.right;
+    node.right = temp.right.right;
+    node.left = temp.left;
+}
+
+function checkBalance(bst) {
+    let parent = bst.parent;
+    // console.log('checkBalance', bst);
+    bst.inOrder(this.root, function(node) {
+        if (!node.left && !node.right) {
+            node.height = 0
+        } else if (!node.left) {
+            node.height = node.right.height ? (node.right.height + 1) : 0;
+        } else if (!node.right) {
+            node.height = node.left.height ? (node.left.height + 1) : 0;
+        } else {
+            node.height = Math.max(node.left.height, node.right.height) + 1;
+        }
+        console.log('here', node.node, node.height);
+        debugger;
+    });
+    while (parent) {
+        if (!(parent.left)) {
+            parent.left = {
+                depth: 0
+            }
+        };
+        if (!parent.right) {
+            parent.right = {
+                depth: 0
+            }
+        };
+        if ((parent.left.depth - parent.right.depth) > 1) {
+            return rightRotation(node);
+        }
+        if ((parent.left.depth - parent.right.depth) < -1) {
+            return leftRotation(node);
+        }
+        parent = parent.parent
+    }
+}
+
+
+
 
 var arr = [23, 1, 100, 45, 16, 37, 3, 99, 22, 105];
 var nums = new BST();
 arr.forEach(function(v, i) {
     nums.insert(v);
 });
-console.log("inOrder traverse :", inOrder(nums.root));
+// console.log("inOrder traverse :", inOrder(nums.root));
 // console.log("preOrder traverse :", preOrder(nums.root));
 // console.log("postOrder traverse :", postOrder(nums.root));
 // console.log(nums);

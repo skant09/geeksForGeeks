@@ -11,8 +11,6 @@ function Node(value) {
     this.show = function() {
         return this.node;
     };
-    this.horizontalPosition = null;
-    this.depth = 0;
 }
 /**
  * @class Binary Search Tree
@@ -23,7 +21,6 @@ function Node(value) {
  */
 function BST() {
     this.root = null;
-    this.horizontalPosition = 0;
     /*
       @member Method
      */
@@ -33,6 +30,10 @@ function BST() {
     this.getMin = getMin;
     this.getMax = getMax;
     this.checkBalance = checkBalance;
+    this.maxHeight = maxHeight;
+    this.nodeHeight = function(data){
+	   return  maxHeight(this.find(data))
+    }
 }
 /**
  * Insert function for BST
@@ -42,10 +43,8 @@ function BST() {
 function insert(data) {
     var n = new Node(data, null, null);
     // if no root, create root
-    if (!this.root) {
+    if (this.root === null) {
         this.root = n;
-        n.horizontalPosition = 0;
-        n.depth = 0;
     } else {
         // start from root, traverse and insert
         var current = this.root;
@@ -55,10 +54,9 @@ function insert(data) {
             parent = current;
             if (data <= current.node) {
                 current = current.left;
-                if (!current) {
+                if (current === null) {
                     parent.left = n;
-                    n.horizontalPosition = parent.horizontalPosition - 1;
-                    // console.log(parent.node, n.node, parent.horizontalPosition, n.horizontalPosition);
+                    console.log('left', parent.node, n );
                     // break while loop
                     break;
                 }
@@ -66,14 +64,13 @@ function insert(data) {
                 current = current.right;
                 if (!current) {
                     parent.right = n;
-                    n.horizontalPosition = parent.horizontalPosition + 1;
-                    // console.log(parent.node, n.node, parent.horizontalPosition, n.horizontalPosition);
+                    console.log('right', parent.node, n );
                     // break while loop
                     break;
                 }
             }
         }
-        this.checkBalance(this);
+        // this.checkBalance(this);
     }
     // console.log(data, n.horizontalPosition);
 }
@@ -106,8 +103,8 @@ function postOrder(node) {
     if (node) {
         postOrder(node.left);
         postOrder(node.right);
+	console.log(node.show());
     }
-    console.log('*', node.show());
     return 'done';
 }
 
@@ -122,7 +119,8 @@ function find(data) {
         }
         if (!current) return data + ' notFound';
     }
-    return data + ' found';
+    console.log('find method', current);
+    return current;
 }
 
 function getMin() {
@@ -195,17 +193,27 @@ function checkBalance(bst) {
     }
 }
 
+function maxHeight(node){
+	if(!node){
+		return 0;
+	}
+	var leftHeight = maxHeight(node.left);
+	var rightHeight = maxHeight(node.right);
+	return leftHeight > rightHeight ? leftHeight+1 : rightHeight+1;
+}
 
 
-
-var arr = [23, 1, 100, 45, 16, 37, 3, 99, 22, 105];
+var arr = [ 23, 1, 100, 45, 16, 37, 3, 99, 22, 105];
 var nums = new BST();
 arr.forEach(function(v, i) {
     nums.insert(v);
 });
-// console.log("inOrder traverse :", inOrder(nums.root));
-// console.log("preOrder traverse :", preOrder(nums.root));
-// console.log("postOrder traverse :", postOrder(nums.root));
+console.log("inOrder traverse :", inOrder(nums.root));
+console.log("preOrder traverse :", preOrder(nums.root));
+console.log("postOrder traverse :", postOrder(nums.root));
+console.log("maxHeight", nums.nodeHeight(16));
+// console.log('find', nums.find(100));
+
 // console.log(nums);
 // console.log(nums.find(3));
 // console.log(nums.find(30));

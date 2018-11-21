@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/skant09/geeksForGeeks/issues"
   },
-  "homepage": "https://github.com/skant09/geeksForGeeks#readme"
+  "homepage": "https://github.com/skant09/geeksForGeeks#readme",
+  "dependencies": {
+    "columnify": "^1.5.4"
+  }
 }

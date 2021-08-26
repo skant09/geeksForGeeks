@@ -7,7 +7,11 @@ function Node(element) {
     this.element = element;
     this.next = null;
 }
-
+/**
+ * @class LinkedList
+ * 
+ *  
+ */
 function linkedList() {
     this.head = new Node("head");
     this.head.next = null;

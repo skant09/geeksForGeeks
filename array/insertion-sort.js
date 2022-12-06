@@ -1,5 +1,4 @@
-import 'chalk';
-
+import Chalk from "chalk";
 
 function generateRandomNumber(i, v) {
   let randomNumber = Math.floor(Math.random() * 100);
@@ -24,6 +23,8 @@ function insertionSort(arr) {
   }
 }
 
-let arr = Array(10).fill(1).map(generateRandomNumber);
+let arr = Array(10)
+  .fill(1)
+  .map(generateRandomNumber);
 insertionSort(arr);
-console.log(chalk.red('Text in red'));
+console.log(chalk.red("Text in red"));

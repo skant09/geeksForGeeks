@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="parent" class="parent"></div>
+    <div class="parent flex"></div>
+
+    <style>
+      .parent {
+        display: block;
+      }
+      .parent.flex {
+        display: flex;
+        align-items: baseline;
+      }
+      .parent div {
+        display: inline-block;
+        background-color: red;
+        width: 30px;
+      }
+      .child1 {
+        height: 10px;
+      }
+      .child2 {
+        height: 20px;
+      }
+      .child3 {
+        height: 30px;
+      }
+      .child4 {
+        height: 40px;
+      }
+      .child5 {
+        height: 50px;
+      }
+    </style>
+    <script>
+      const a = 10;
+      let childElement = Array(a)
+        .fill(1)
+        .map((i) => Math.floor(Math.random() * 100))
+        .map((v, i) => console.log(i, v) || `<div class="child" style="height: ${v}px"></div>`);
+      console.log(childElement);
+
+      const parentEle = document.getElementById("parent");
+      parentEle.innerHTML = childElement.join("");
+    </script>
+  </body>
+</html>

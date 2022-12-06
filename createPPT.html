@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .parent {
+        display: block;
+      }
+      .parent.flex {
+        display: flex;
+        align-items: baseline;
+      }
+      .parent div {
+        display: inline-block;
+        background-color: red;
+        width: 30px;
+      }
+      .child1 {
+        height: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="parent" class="parent"></div>
+    <div class="parent flex"></div>
+    <script>
+      const a = 100;
+      //   let url = "https://image.slidesharecdn.com/facelift-140621153157-phpapp01/95/facelift-surgery-";
+      let url = "https://image.slidesharecdn.com/pdothreadlift-180416140341/95/pdo-thread-lift-";
+      let childElement = Array(a)
+        .fill(1)
+        .map((v, i) => console.log(i, v) || `<img class="child" src=${url}${i}-1024.jpg></img>`);
+      console.log(childElement);
+
+      const parentEle = document.getElementById("parent");
+      parentEle.innerHTML = childElement.join("");
+    </script>
+  </body>
+</html>

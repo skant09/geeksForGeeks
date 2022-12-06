@@ -1,8 +1,11 @@
 function binarySearch(arr, elem) {
   let start = 0,
     end = arr.length - 1;
+
+  // we only change index keeping the array same
   while (start <= end) {
-    let mid = Math.floor((start + end) / 2);
+    let mid = Math.floor((start + end) / 2); // change mid point
+    
     if (arr[mid] === elem) {
       return mid;
     } else if (arr[mid] > elem) {
@@ -10,6 +13,7 @@ function binarySearch(arr, elem) {
     } else {
       start = mid + 1;
     }
+    
   }
   return -1;
 }

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .parent {
+        display: block;
+        width: 50%;
+      }
+
+      .parent.flex {
+        display: flex;
+        align-items: baseline;
+      }
+
+      .parent div {
+        display: inline-block;
+        background-color: red;
+        width: 30px;
+      }
+
+      .child {
+        /* height: 10px; */
+        width: 100%;
+      }
+
+      #download {
+        width: 100px;
+        display: block;
+        height: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- <button id="download">DOWNLOAD</button>
+    <div style="width: 45vw; display: inline-block;">LIVE IMAGES
+      <div id="parent" class="parent">
+        <div class="parent flex"></div>
+      </div>
+    </div> -->
+
+    <div style="width: 45vw; display: inline-block;">IMAGES ON SERVER
+      <div id="parent_assets" class="parent">
+        <div class="parent flex"></div>
+      </div>
+    </div>
+
+
+    <script>
+      (function () {
+        const a = 19;
+        //   let url = "https://image.slidesharecdn.com/facelift-140621153157-phpapp01/95/facelift-surgery-";
+        let sku = window.location.search.split('?')[1]
+        let url = `http://assets.zivame.com/media/zcmsimages/configimages/${sku}`;
+        let childElement = Array(a)
+          .fill(1)
+          .map((v, i) => {
+            let url_jpg = `${url}/${i}.jpg`;
+            return `<a href=${url_jpg}><img class="child" src=${url_jpg}></img></a>
+            <a href=${url.replace('jpg', 'JPG')}><img class="child" src=${url.replace('jpg', 'JPG')}></img></a>`
+          });
+        console.log(childElement);
+
+        const parentEle = document.getElementById("parent_assets");
+        parentEle.innerHTML = childElement.join("");
+      })()
+    </script>
+  </body>
+
+</html>

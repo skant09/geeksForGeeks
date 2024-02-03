@@ -1,0 +1,11 @@
+{
+  "name": "geeks_4_geeks_practice",
+  "version": "0.0.1",
+  "description": "Practising g4g",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "suryakant",
+  "license": "MIT"
+}

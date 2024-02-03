@@ -59,7 +59,7 @@ var maxArea = function(height) {
     let left =0, right= height.length-1; maxWater =0;
     while(left < right){
         let width = right -left;
-        let h = min(height[left], height[right]);
+        let h = Math.min(height[left], height[right]);
         water = width * h;
         maxWater = Math.max(maxWater, water);
 
